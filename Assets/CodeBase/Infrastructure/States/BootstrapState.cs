@@ -1,7 +1,7 @@
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Logic;
 using CodeBase.Services;
+using CodeBase.Services.Factory;
 using CodeBase.Services.Input;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
@@ -12,7 +12,7 @@ namespace CodeBase.Infrastructure.States
     public class BootstrapState : IState
     {
         private const string InitScene = "Initial";
-        private const string MainScene = "Main";
+        private const string Level1Scene = "Level1";
 
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
@@ -41,14 +41,18 @@ namespace CodeBase.Infrastructure.States
             RegisterStaticData();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
-            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
+
+            _services.RegisterSingle<IGameFactory>(new GameFactory(
+                _services.Single<IAssetProvider>(),
+                _services.Single<IStaticDataService>()));
+
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IStaticDataService>()));
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
         }
 
         private void OnLoaded()
         {
-            _stateMachine.Enter<LoadLevelState, string>(MainScene);
+            _stateMachine.Enter<LoadLevelState, string>(Level1Scene);
         }
 
         private void RegisterStaticData()

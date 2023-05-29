@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd3070795a3ca741b5c995e07f5d261, type: 3}
   m_Name: LevelsStaticData
   m_EditorClassIdentifier: 
-  LevelConfigs: []
+  LevelConfigs:
+  - <LevelKey>k__BackingField: Level1
+    <TowerId>k__BackingField: 1

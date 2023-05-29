@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 918ab049d00a865499b921613cb4f4c4, type: 3}
   m_Name: TowerStaticData
   m_EditorClassIdentifier: 
-  <TowerId>k__BackingField: 0
-  <TowerPrefab>k__BackingField: {fileID: 0}
+  TowerConfigs:
+  - _inspectorName: Tower1
+    <TowerId>k__BackingField: 1
+    <TowerPrefab>k__BackingField: {fileID: 5637036291201434732, guid: 7d25d4810551f804e84771e87e041295, type: 3}

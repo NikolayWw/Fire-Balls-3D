@@ -1,9 +1,10 @@
-﻿using CodeBase.StaticData.Levels;
+﻿using CodeBase.StaticData.Bullet;
+using CodeBase.StaticData.Levels;
+using CodeBase.StaticData.Tower;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Window;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.StaticData.Tower;
 using UnityEngine;
 
 namespace CodeBase.Services.StaticData
@@ -13,17 +14,21 @@ namespace CodeBase.Services.StaticData
         private const string WindowStaticDataPath = "StaticData/WindowStaticData";
         private const string LevelsStaticDataPath = "StaticData/LevelsStaticData";
         private const string TowerStaticDataPath = "StaticData/TowerStaticData";
+        private const string BulletStaticDataPath = "StaticData/BulletStaticData";
+
+        public BulletStaticData BulletStaticData { get; private set; }
 
         private Dictionary<WindowId, WindowConfig> _windowConfigs;
         private Dictionary<string, LevelConfig> _levelConfigs;
         private Dictionary<TowerId, TowerConfig> _towerConfigs;
-
+        private Dictionary<BulletId, BulletConfig> _bulletConfigs;
 
         public void Load()
         {
             _windowConfigs = Resources.Load<WindowStaticData>(WindowStaticDataPath).Configs.ToDictionary(x => x.WindowId, x => x);
             _levelConfigs = Resources.Load<LevelsStaticData>(LevelsStaticDataPath).LevelConfigs.ToDictionary(x => x.LevelKey, x => x);
             _towerConfigs = Resources.Load<TowerStaticData>(TowerStaticDataPath).TowerConfigs.ToDictionary(x => x.TowerId, x => x);
+            LoadBulletData();
         }
 
         public WindowConfig ForWindow(WindowId id) =>
@@ -34,5 +39,14 @@ namespace CodeBase.Services.StaticData
 
         public TowerConfig ForTower(TowerId id) =>
             _towerConfigs.TryGetValue(id, out var data) ? data : null;
+
+        public BulletConfig ForBullet(BulletId id) =>
+            _bulletConfigs.TryGetValue(id, out var data) ? data : null;
+
+        private void LoadBulletData()
+        {
+            BulletStaticData = Resources.Load<BulletStaticData>(BulletStaticDataPath);
+            _bulletConfigs = BulletStaticData.BulletConfigs.ToDictionary(x => x.BulletId, x => x);
+        }
     }
 }

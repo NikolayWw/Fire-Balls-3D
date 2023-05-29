@@ -1,6 +1,9 @@
-using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Logic;
+using CodeBase.Services.Factory;
+using CodeBase.Services.StaticData;
+using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Factory;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -11,18 +14,23 @@ namespace CodeBase.Infrastructure.States
         private readonly LoadCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
+        private readonly IStaticDataService _dataService;
 
-        public LoadLevelState(IGameStateMachine stateMachine, SceneLoader sceneLoader, LoadCurtain loadingCurtain,IGameFactory gameFactory, IUIFactory uiFactory)
+        private string _activeSceneName;
+
+        public LoadLevelState(IGameStateMachine stateMachine, SceneLoader sceneLoader, LoadCurtain loadingCurtain, IGameFactory gameFactory, IUIFactory uiFactory, IStaticDataService dataService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
+            _dataService = dataService;
         }
 
         public void Enter(string sceneName)
         {
+            _activeSceneName = sceneName;
             _loadingCurtain.Show();
             Clean();
             _sceneLoader.Load(sceneName, OnLoaded);
@@ -35,9 +43,17 @@ namespace CodeBase.Infrastructure.States
 
         private void OnLoaded()
         {
+            GetLevelConfig(_activeSceneName, out LevelConfig levelConfig);
+
             _uiFactory.CreateUIRoot();
 
+            _gameFactory.CreateTower(levelConfig.TowerId, Vector3.zero);
             _stateMachine.Enter<LoopState>();
+        }
+
+        private void GetLevelConfig(string activeSceneName, out LevelConfig levelConfig)
+        {
+            levelConfig = _dataService.ForLevel(activeSceneName);
         }
 
         private void Clean()

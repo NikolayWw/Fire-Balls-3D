@@ -1,6 +1,7 @@
-using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Logic;
 using CodeBase.Services;
+using CodeBase.Services.Factory;
+using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,8 @@ namespace CodeBase.Infrastructure.States
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadCurtain,
                     services.Single<IGameFactory>(),
-                    services.Single<IUIFactory>()),
+                    services.Single<IUIFactory>(),
+                    services.Single<IStaticDataService>()),
 
                 [typeof(LoopState)] = new LoopState(),
             };
