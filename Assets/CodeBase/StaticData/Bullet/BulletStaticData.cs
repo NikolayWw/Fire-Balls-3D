@@ -6,8 +6,10 @@ namespace CodeBase.StaticData.Bullet
     [CreateAssetMenu(menuName = "Static Data/Bullet Static Data", order = 0)]
     public class BulletStaticData : ScriptableObject
     {
+        [field: SerializeField] public int PoolCount { get; private set; } = 20;
         [field: SerializeField] public float ShootForce { get; private set; } = 20f;
         [field: SerializeField] public float LifeTime { get; private set; } = 5f;
+
         public List<BulletConfig> BulletConfigs;
 
         private void OnValidate()
@@ -16,6 +18,7 @@ namespace CodeBase.StaticData.Bullet
 
             if (ShootForce < 0) ShootForce = 0;
             if (LifeTime < 0) LifeTime = 0;
+            if (PoolCount < 0) PoolCount = 0;
         }
     }
 }
