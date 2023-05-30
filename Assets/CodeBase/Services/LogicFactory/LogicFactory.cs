@@ -12,9 +12,9 @@ namespace CodeBase.Services.LogicFactory
             _gameFactory = gameFactory;
         }
 
-        public BulletObjectPool CreateBulletObjectPool()
+        public BulletPoolHandlerHandler CreateBulletObjectPool()
         {
-            return new BulletObjectPool(_gameFactory);
+            return new BulletPoolHandlerHandler(_gameFactory);
         }
     }
 }

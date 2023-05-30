@@ -7,7 +7,6 @@ namespace CodeBase.Bullet
     {
         private void OnCollisionEnter(Collision other)
         {
-            Debug.Log(1);
             if (other.gameObject.TryGetComponent(out IApplyDamage applyDamage))
                 applyDamage.ApplyDamage();
         }

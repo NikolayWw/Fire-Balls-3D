@@ -7,7 +7,6 @@ namespace CodeBase.Tower
     {
         public void ApplyDamage()
         {
-            Debug.Log("Tower Apply Damage");
         }
     }
 }

@@ -27,7 +27,9 @@ namespace CodeBase.Services.Factory
         public GameObject CreateBullet(BulletId id)
         {
             BulletConfig config = _dataService.ForBullet(id);
-            return Object.Instantiate(config.Prefab);
+            GameObject instance = Object.Instantiate(config.Prefab);
+            instance.GetComponent<BulletPoolObject>()?.Construct(_dataService.BulletStaticData.LifeTime);
+            return instance;
         }
     }
 }

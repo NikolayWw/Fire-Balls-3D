@@ -13,12 +13,12 @@ namespace CodeBase.Player
         [SerializeField] private Transform _shootPoint;
 
         private IStaticDataService _staticData;
-        private BulletObjectPool _bulletPool;
+        private BulletPoolHandlerHandler _bulletPoolHandlerHandler;
 
         private void Start()
         {
             _staticData = AllServices.Container.Single<IStaticDataService>();
-            _bulletPool = AllServices.Container.Single<ILogicFactory>().CreateBulletObjectPool();
+            _bulletPoolHandlerHandler = AllServices.Container.Single<ILogicFactory>().CreateBulletObjectPool();
         }
 
         private void Update()
@@ -29,7 +29,7 @@ namespace CodeBase.Player
 
         private void Fire()
         {
-            BulletMove bullet = _bulletPool.Get(BulletId.Bullet1);
+            BulletMove bullet = _bulletPoolHandlerHandler.Get(BulletId.Bullet1);
             bullet.SetPositionAndDirection(_shootPoint.position, _shootPoint.forward * _staticData.BulletStaticData.ShootForce);
         }
     }
