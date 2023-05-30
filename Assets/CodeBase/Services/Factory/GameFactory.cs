@@ -24,7 +24,7 @@ namespace CodeBase.Services.Factory
             return Object.Instantiate(config.TowerPrefab, at, Quaternion.identity);
         }
 
-        public BulletMove CreateBullet(BulletId id)
+        public GameObject CreateBullet(BulletId id)
         {
             BulletConfig config = _dataService.ForBullet(id);
             return Object.Instantiate(config.Prefab);

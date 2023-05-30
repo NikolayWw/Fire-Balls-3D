@@ -8,6 +8,6 @@ namespace CodeBase.Services.Factory
     public interface IGameFactory : IService
     {
         GameObject CreateTower(TowerId id, Vector3 at);
-        BulletMove CreateBullet(BulletId id);
+        GameObject CreateBullet(BulletId id);
     }
 }

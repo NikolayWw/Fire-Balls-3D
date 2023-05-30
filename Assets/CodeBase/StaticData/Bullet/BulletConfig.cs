@@ -9,7 +9,7 @@ namespace CodeBase.StaticData.Bullet
     {
         [SerializeField] private string _inspectorName;
         [field: SerializeField] public BulletId BulletId { get; private set; }
-        [field: SerializeField] public BulletMove Prefab { get; private set; }
+        [field: SerializeField] public GameObject Prefab { get; private set; }
 
         public void OnValidate()
         {

@@ -29,13 +29,13 @@ namespace CodeBase.Infrastructure.States
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadState<TPayload>
         {
-            var state = ChangeState<TState>();
+            TState state = ChangeState<TState>();
             state.Enter(payload);
         }
 
         public void Enter<TState>() where TState : class, IState
         {
-            var state = ChangeState<TState>();
+            TState state = ChangeState<TState>();
             state.Enter();
         }
 
