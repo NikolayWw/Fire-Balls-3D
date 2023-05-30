@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Logic.Pool;
+﻿using CodeBase.Logic.Pool;
 
 namespace CodeBase.Services.LogicFactory
 {

@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Infrastructure.Logic.Pool
+﻿namespace CodeBase.Logic.Pool
 {
     public interface IObjectPool
     {

@@ -16,4 +16,4 @@ MonoBehaviour:
   BulletConfigs:
   - _inspectorName: Bullet1
     <BulletId>k__BackingField: 1
-    <Prefab>k__BackingField: {fileID: 1334926281624934959, guid: 1863dfe0758bae54bbf5e6af126388a5, type: 3}
+    <Prefab>k__BackingField: {fileID: 4470356181696435622, guid: 1863dfe0758bae54bbf5e6af126388a5, type: 3}
