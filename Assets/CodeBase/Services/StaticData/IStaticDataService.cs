@@ -1,4 +1,5 @@
 ﻿using CodeBase.StaticData.Bullet;
+using CodeBase.StaticData.Let;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.Tower;
 using CodeBase.StaticData.Windows;
@@ -15,5 +16,6 @@ namespace CodeBase.Services.StaticData
         TowerConfig ForTower(TowerId id);
         BulletConfig ForBullet(BulletId id);
         BulletStaticData BulletStaticData { get; }
+        LetConfig ForLet(LetId id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CodeBase.StaticData.Bullet;
+using CodeBase.StaticData.Let;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.Tower;
 using CodeBase.StaticData.Windows;
@@ -15,6 +16,7 @@ namespace CodeBase.Services.StaticData
         private const string LevelsStaticDataPath = "StaticData/LevelsStaticData";
         private const string TowerStaticDataPath = "StaticData/TowerStaticData";
         private const string BulletStaticDataPath = "StaticData/BulletStaticData";
+        private const string LetStaticDataPath = "StaticData/LetStaticData";
 
         public BulletStaticData BulletStaticData { get; private set; }
 
@@ -22,6 +24,7 @@ namespace CodeBase.Services.StaticData
         private Dictionary<string, LevelConfig> _levelConfigs;
         private Dictionary<TowerId, TowerConfig> _towerConfigs;
         private Dictionary<BulletId, BulletConfig> _bulletConfigs;
+        private Dictionary<LetId, LetConfig> _letConfigs;
 
         public void Load()
         {
@@ -29,6 +32,7 @@ namespace CodeBase.Services.StaticData
             _levelConfigs = Resources.Load<LevelsStaticData>(LevelsStaticDataPath).LevelConfigs.ToDictionary(x => x.LevelKey, x => x);
             _towerConfigs = Resources.Load<TowerStaticData>(TowerStaticDataPath).TowerConfigs.ToDictionary(x => x.TowerId, x => x);
             LoadBulletData();
+            _letConfigs = Resources.Load<LetStaticData>(LetStaticDataPath).LetConfigs.ToDictionary(x => x.Id, x => x);
         }
 
         public WindowConfig ForWindow(WindowId id) =>
@@ -42,6 +46,9 @@ namespace CodeBase.Services.StaticData
 
         public BulletConfig ForBullet(BulletId id) =>
             _bulletConfigs.TryGetValue(id, out var data) ? data : null;
+
+        public LetConfig ForLet(LetId id) =>
+            _letConfigs.TryGetValue(id, out var data) ? data : null;
 
         private void LoadBulletData()
         {
