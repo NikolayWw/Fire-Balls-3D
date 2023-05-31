@@ -1,5 +1,5 @@
-﻿using CodeBase.Let;
-using CodeBase.Logic.Pool;
+﻿using CodeBase.Logic.Pool;
+using CodeBase.Obstacle;
 using CodeBase.Services.Factory;
 using CodeBase.Services.GameObserver;
 using CodeBase.Services.StaticData;
@@ -15,7 +15,7 @@ namespace CodeBase.Services.LogicFactory
         private readonly IGameObserverService _gameObserver;
 
         public TowerBuilder TowerBuilder { get; private set; }
-        public LetBuilder LetBuilder { get; private set; }
+        public ObstacleBuilder ObstacleBuilder { get; private set; }
 
         public LogicFactory(IGameFactory gameFactory, IStaticDataService dataService, IGameObserverService gameObserver)
         {
@@ -34,9 +34,9 @@ namespace CodeBase.Services.LogicFactory
             TowerBuilder = new TowerBuilder(_gameFactory, _dataService, _gameObserver, levelConfig);
         }
 
-        public void InitializeLetBuilder(LevelConfig levelConfig)
+        public void InitializeObstacleBuilder(LevelConfig levelConfig)
         {
-            LetBuilder = new LetBuilder(_gameFactory, levelConfig);
+            ObstacleBuilder = new ObstacleBuilder(_gameFactory, levelConfig);
         }
 
         public BulletPoolHandlerHandler CreateBulletObjectPool()

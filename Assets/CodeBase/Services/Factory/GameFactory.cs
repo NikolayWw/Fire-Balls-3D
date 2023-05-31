@@ -1,11 +1,10 @@
 ﻿using CodeBase.Bullet;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Let;
+using CodeBase.Obstacle;
 using CodeBase.Services.GameObserver;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Bullet;
-using CodeBase.StaticData.Let;
-using CodeBase.StaticData.Levels;
+using CodeBase.StaticData.Obstacle;
 using CodeBase.StaticData.Tower;
 using CodeBase.Tower;
 using UnityEngine;
@@ -25,6 +24,10 @@ namespace CodeBase.Services.Factory
             _dataService = dataService;
             _gameObserver = gameObserver;
         }
+
+        public GameObject CreatePlayer() =>
+            _assetProvider.Instantiate(AssetsPath.Player, _dataService.ForLevel(LevelKey).PlayerInitialPosition);
+
         public GameObject CreateTower(TowerId id, Vector3 at)
         {
             if (TowerId.None == id)
@@ -33,17 +36,20 @@ namespace CodeBase.Services.Factory
             TowerConfig config = _dataService.ForTower(id);
             GameObject instance = Object.Instantiate(config.TowerPrefab, at, Quaternion.identity);
             instance.GetComponent<TowerMove>()?.Construct(config, _gameObserver);
+            instance.GetComponent<TowerApplyDamage>()?.Construct(_gameObserver);
             return instance;
         }
 
-        public GameObject CreateLet(LetId id, Vector3 at)
+        public GameObject CreateObstacle(ObstacleId id, Vector3 at)
         {
-            if (LetId.None == id)
+            if (ObstacleId.None == id)
                 return null;
 
-            LetConfig config = _dataService.ForLet(id);
+            ObstacleConfig config = _dataService.ForObstacle(id);
             GameObject instance = Object.Instantiate(config.Prefab, at, Quaternion.identity);
-            instance.GetComponent<LetMove>()?.Construct(_gameObserver, _dataService.ForLevel(LevelKey));
+            instance.GetComponent<ObstacleMove>()?.Construct(_gameObserver, _dataService.ForLevel(LevelKey));
+            instance.GetComponent<ObstacleApplyDamage>()?.Construct(_gameObserver);
+
             return instance;
         }
 
@@ -58,7 +64,7 @@ namespace CodeBase.Services.Factory
             return instance;
         }
 
-        private string LevelKey =>
+        private static string LevelKey =>
             SceneManager.GetActiveScene().name;
     }
 }

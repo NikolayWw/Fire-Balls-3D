@@ -7,5 +7,10 @@ namespace CodeBase.StaticData.Levels
     public class LevelsStaticData : ScriptableObject
     {
         public List<LevelConfig> LevelConfigs;
+
+        private void OnValidate()
+        {
+            LevelConfigs.ForEach(x => x.OnValidate());
+        }
     }
 }

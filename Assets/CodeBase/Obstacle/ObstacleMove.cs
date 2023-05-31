@@ -1,36 +1,32 @@
-using CodeBase.Logic;
 using CodeBase.Services.GameObserver;
 using CodeBase.StaticData.Levels;
 using UnityEngine;
 
-namespace CodeBase.Let
+namespace CodeBase.Obstacle
 {
-    public class LetMove : MonoBehaviour, IApplyDamage
+    public class ObstacleMove : MonoBehaviour
     {
         [SerializeField] private Rigidbody _rigidbody;
 
         private float _speed;
         private IGameObserverService _observerService;
-        private bool _hasBeenSent;
 
         public void Construct(IGameObserverService observerService, LevelConfig levelConfig)
         {
             _observerService = observerService;
-            _speed = levelConfig.LetMoveSpeed;
+            _speed = levelConfig.ObstacleMoveSpeed;
+
+            _observerService.OnTowerDestroyed += StopMove;
+        }
+
+        private void OnDestroy()
+        {
+            _observerService.OnTowerDestroyed -= StopMove;
         }
 
         private void FixedUpdate()
         {
             UpdateRotate();
-        }
-
-        public void ApplyDamage()
-        {
-            if (_hasBeenSent)
-                return;
-
-            _observerService.SendEndGame();
-            _hasBeenSent = true;
         }
 
         private void UpdateRotate()
@@ -39,5 +35,8 @@ namespace CodeBase.Let
             rotate.y += _speed * Time.fixedDeltaTime;
             _rigidbody.MoveRotation(Quaternion.Euler(rotate));
         }
+
+        private void StopMove() => 
+            enabled = false;
     }
 }

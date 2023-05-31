@@ -2,7 +2,7 @@
 using CodeBase.Services.GameObserver;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Levels;
-using UnityEngine;
+using CodeBase.StaticData.Tower;
 
 namespace CodeBase.Tower
 {
@@ -23,7 +23,8 @@ namespace CodeBase.Tower
 
         public void Build()
         {
-            _gameFactory.CreateTower(_levelConfig.TowerId, Vector3.zero);
+            foreach (TowerLevelStaticData staticData in _levelConfig.TowerLevelStaticData)
+                _gameFactory.CreateTower(staticData.TowerId, staticData.Position);
         }
     }
 }

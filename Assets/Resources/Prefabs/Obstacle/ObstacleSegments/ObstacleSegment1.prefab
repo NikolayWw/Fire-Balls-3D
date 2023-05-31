@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6960971013294901025, guid: 110faffd620dc0c4d88c9bc4ee6bc59f, type: 3}
       propertyPath: m_Name
-      value: Segment1
+      value: ObstacleSegment1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 110faffd620dc0c4d88c9bc4ee6bc59f, type: 3}
@@ -62,6 +62,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6960971013294901025, guid: 110faffd620dc0c4d88c9bc4ee6bc59f, type: 3}
   m_PrefabInstance: {fileID: 2347189253350118390}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &-8059590725161691575
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614134020294808791}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1405300915
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -112,16 +125,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &-8059590725161691575
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4614134020294808791}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

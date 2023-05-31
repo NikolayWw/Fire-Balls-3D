@@ -1,5 +1,5 @@
-﻿using CodeBase.Let;
-using CodeBase.Logic.Pool;
+﻿using CodeBase.Logic.Pool;
+using CodeBase.Obstacle;
 using CodeBase.StaticData.Levels;
 using CodeBase.Tower;
 
@@ -9,9 +9,9 @@ namespace CodeBase.Services.LogicFactory
     {
         BulletPoolHandlerHandler CreateBulletObjectPool();
         TowerBuilder TowerBuilder { get; }
-        LetBuilder LetBuilder { get; }
+        ObstacleBuilder ObstacleBuilder { get; }
         void Cleanup();
         void InitializeTowerBuilder(LevelConfig levelConfig);
-        void InitializeLetBuilder(LevelConfig levelConfig);
+        void InitializeObstacleBuilder(LevelConfig levelConfig);
     }
 }

@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6836377502832125991, guid: dce0f26c15cd9ce4db7e91e4de8327ef, type: 3}
       propertyPath: m_Name
-      value: Let1
+      value: Obstacle1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce0f26c15cd9ce4db7e91e4de8327ef, type: 3}

@@ -1,13 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CodeBase.StaticData.Let
+namespace CodeBase.StaticData.Obstacle
 {
     [Serializable]
-    public class LetConfig
+    public class ObstacleConfig
     {
         [SerializeField] private string _inspectorName;
-        [field: SerializeField] public LetId Id { get; private set; }
+        [field: SerializeField] public ObstacleId Id { get; private set; }
         [field: SerializeField] public GameObject Prefab { get; private set; }
 
         public void OnValidate()

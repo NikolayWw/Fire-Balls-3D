@@ -52,10 +52,12 @@ namespace CodeBase.Infrastructure.States
 
             _uiFactory.CreateUIRoot();
             _logicFactory.InitializeTowerBuilder(levelConfig);
-            _logicFactory.InitializeLetBuilder(levelConfig);
+            _logicFactory.InitializeObstacleBuilder(levelConfig);
 
             _logicFactory.TowerBuilder.Build();
-            _logicFactory.LetBuilder.Build();
+            _logicFactory.ObstacleBuilder.Build();
+
+            _gameFactory.CreatePlayer();
 
             _stateMachine.Enter<LoopState>();
         }
