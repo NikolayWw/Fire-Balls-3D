@@ -52,8 +52,10 @@ namespace CodeBase.Infrastructure.States
 
             _uiFactory.CreateUIRoot();
             _logicFactory.InitializeTowerBuilder(levelConfig);
+            _logicFactory.InitializeLetBuilder(levelConfig);
 
             _logicFactory.TowerBuilder.Build();
+            _logicFactory.LetBuilder.Build();
 
             _stateMachine.Enter<LoopState>();
         }

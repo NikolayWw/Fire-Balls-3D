@@ -7,6 +7,7 @@ namespace CodeBase.Services.GameObserver
         Action OnStartTowerBuild { get; set; }
         Action OnEndTowerBuild { get; set; }
         Action OnTowerDestroyed { get; set; }
+        Action OnGameEnd { get; set; }
 
         void Cleanup();
 
@@ -15,5 +16,6 @@ namespace CodeBase.Services.GameObserver
         void SendEndTowerBuild();
 
         void SendTowerDestroyed();
+        void SendEndGame();
     }
 }

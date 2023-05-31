@@ -15,3 +15,5 @@ MonoBehaviour:
   LevelConfigs:
   - <LevelKey>k__BackingField: Level1
     <TowerId>k__BackingField: 1
+    <LetId>k__BackingField: 1
+    <LetMoveSpeed>k__BackingField: 100

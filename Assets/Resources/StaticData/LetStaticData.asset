@@ -15,4 +15,4 @@ MonoBehaviour:
   LetConfigs:
   - _inspectorName: Let1
     <Id>k__BackingField: 1
-    <Prefab>k__BackingField: {fileID: 0}
+    <Prefab>k__BackingField: {fileID: 8972419840796395999, guid: 5255097a6b61b3f4db6e2619c9e266d0, type: 3}
