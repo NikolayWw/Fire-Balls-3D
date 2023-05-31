@@ -19,9 +19,9 @@ namespace CodeBase.Logic.Pool
             return (BulletMove)data.GetComponent(typeof(BulletMove));
         }
 
-        protected override PoolObjectData NewObjectPoolData(BulletId id)
+        protected override PoolObjectData NewObjectPoolData(BulletId key)
         {
-            GameObject instance = _gameFactory.CreateBullet(id);
+            GameObject instance = _gameFactory.CreateBullet(key);
 
             BulletPoolObject poolObjects = instance.GetComponent<BulletPoolObject>();
             BulletMove bulletMove = instance.GetComponent<BulletMove>();

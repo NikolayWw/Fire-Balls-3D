@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b174d974bb36474aa7e235d8f18eae0, type: 3}
   m_Name: BulletStaticData
   m_EditorClassIdentifier: 
+  <PoolCount>k__BackingField: 50
   <ShootForce>k__BackingField: 20
+  <LifeTime>k__BackingField: 5
   BulletConfigs:
   - _inspectorName: Bullet1
     <BulletId>k__BackingField: 1

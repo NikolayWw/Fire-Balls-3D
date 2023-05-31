@@ -11,20 +11,20 @@ namespace CodeBase.Logic.Pool
         public class PoolObjectData
         {
             public TObjectPool ObjectPool { get; }
-            private readonly Dictionary<Type, MonoBehaviour> _components;
+            private Dictionary<Type, MonoBehaviour> _components;
 
             public PoolObjectData(TObjectPool objectPool, params MonoBehaviour[] components)
             {
                 ObjectPool = objectPool;
-                _components = new Dictionary<Type, MonoBehaviour>(components.Length);
-                InitDictionary(components);
+                InitComponentsDictionary(components);
             }
 
             public MonoBehaviour GetComponent(Type key) =>
                 _components.TryGetValue(key, out MonoBehaviour component) ? component : null;
 
-            private void InitDictionary(MonoBehaviour[] components)
+            private void InitComponentsDictionary(MonoBehaviour[] components)
             {
+                _components = new Dictionary<Type, MonoBehaviour>(components.Length);
                 foreach (MonoBehaviour component in components)
                     _components.Add(component.GetType(), component);
             }
@@ -32,17 +32,31 @@ namespace CodeBase.Logic.Pool
 
         private readonly Dictionary<TKey, Queue<PoolObjectData>> _objectsDictionary = new();
 
-        protected PoolObjectData GetData(TKey id)
+        public void InitStartObjects(TKey key, int count)
         {
-            GetQueue(id, out Queue<PoolObjectData> queue);
-            return TryGetObjectPool(queue, out PoolObjectData objectPool) ? objectPool : InitNewObjectPool(queue, id);
+            GetQueue(key, out Queue<PoolObjectData> queue);
+            for (int i = 0; i < count; i++)
+            {
+                PoolObjectData poolData = InitNewObjectPool(queue, key);
+                poolData.ObjectPool.Disable();
+            }
         }
 
-        protected abstract PoolObjectData NewObjectPoolData(TKey id);
-
-        private PoolObjectData InitNewObjectPool(Queue<PoolObjectData> queue, TKey id)
+        protected PoolObjectData GetData(TKey key)
         {
-            PoolObjectData newObjectPool = NewObjectPoolData(id);
+            GetQueue(key, out Queue<PoolObjectData> queue);
+            if (TryGetObjectPool(queue, out PoolObjectData poolObjectData))
+                return poolObjectData;
+
+            Debug.LogError("Pool size is too small");
+            return InitNewObjectPool(queue, key);
+        }
+
+        protected abstract PoolObjectData NewObjectPoolData(TKey key);
+
+        private PoolObjectData InitNewObjectPool(Queue<PoolObjectData> queue, TKey key)
+        {
+            PoolObjectData newObjectPool = NewObjectPoolData(key);
             queue.Enqueue(newObjectPool);
             return newObjectPool;
         }
@@ -62,12 +76,12 @@ namespace CodeBase.Logic.Pool
             return false;
         }
 
-        private void GetQueue(TKey id, out Queue<PoolObjectData> queue)
+        private void GetQueue(TKey key, out Queue<PoolObjectData> queue)
         {
-            if (_objectsDictionary.TryGetValue(id, out queue) == false)
+            if (_objectsDictionary.TryGetValue(key, out queue) == false)
             {
                 queue = new Queue<PoolObjectData>();
-                _objectsDictionary.Add(id, queue);
+                _objectsDictionary.Add(key, queue);
             }
         }
     }

@@ -26,7 +26,7 @@ namespace CodeBase.UI.Services.Factory
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
         }
-        public void Clean()
+        public void Cleanup()
         {
             WindowsContainer.Clear();
             OnWindowClose = null;

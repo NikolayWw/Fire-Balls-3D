@@ -1,8 +1,10 @@
 ﻿using CodeBase.Bullet;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Services.GameObserver;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Bullet;
 using CodeBase.StaticData.Tower;
+using CodeBase.Tower;
 using UnityEngine;
 
 namespace CodeBase.Services.Factory
@@ -11,17 +13,21 @@ namespace CodeBase.Services.Factory
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _dataService;
+        private readonly IGameObserverService _gameObserver;
 
-        public GameFactory(IAssetProvider assetProvider, IStaticDataService dataService)
+        public GameFactory(IAssetProvider assetProvider, IStaticDataService dataService,IGameObserverService gameObserver)
         {
             _assetProvider = assetProvider;
             _dataService = dataService;
+            _gameObserver = gameObserver;
         }
 
         public GameObject CreateTower(TowerId id, Vector3 at)
         {
             TowerConfig config = _dataService.ForTower(id);
-            return Object.Instantiate(config.TowerPrefab, at, Quaternion.identity);
+            GameObject instance = Object.Instantiate(config.TowerPrefab, at, Quaternion.identity);
+            instance.GetComponent<TowerMove>()?.Construct(config, _gameObserver);
+            return instance;
         }
 
         public GameObject CreateBullet(BulletId id)

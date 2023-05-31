@@ -19,6 +19,7 @@ namespace CodeBase.Player
         {
             _staticData = AllServices.Container.Single<IStaticDataService>();
             _bulletPoolHandlerHandler = AllServices.Container.Single<ILogicFactory>().CreateBulletObjectPool();
+            _bulletPoolHandlerHandler.InitStartObjects(BulletId.Bullet1,_staticData.BulletStaticData.PoolCount);
         }
 
         private void Update()

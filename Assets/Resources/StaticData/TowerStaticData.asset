@@ -16,3 +16,5 @@ MonoBehaviour:
   - _inspectorName: Tower1
     <TowerId>k__BackingField: 1
     <TowerPrefab>k__BackingField: {fileID: 5637036291201434732, guid: 7d25d4810551f804e84771e87e041295, type: 3}
+    <Height>k__BackingField: 10
+    <StepHeight>k__BackingField: 1

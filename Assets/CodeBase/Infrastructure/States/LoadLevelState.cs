@@ -1,9 +1,10 @@
 using CodeBase.Infrastructure.Logic;
 using CodeBase.Services.Factory;
+using CodeBase.Services.GameObserver;
+using CodeBase.Services.LogicFactory;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Levels;
 using CodeBase.UI.Services.Factory;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -15,10 +16,12 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IUIFactory _uiFactory;
         private readonly IStaticDataService _dataService;
+        private readonly IGameObserverService _gameObserver;
+        private readonly ILogicFactory _logicFactory;
 
         private string _activeSceneName;
 
-        public LoadLevelState(IGameStateMachine stateMachine, SceneLoader sceneLoader, LoadCurtain loadingCurtain, IGameFactory gameFactory, IUIFactory uiFactory, IStaticDataService dataService)
+        public LoadLevelState(IGameStateMachine stateMachine, SceneLoader sceneLoader, LoadCurtain loadingCurtain, IGameFactory gameFactory, IUIFactory uiFactory, IStaticDataService dataService, IGameObserverService gameObserver, ILogicFactory logicFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -26,6 +29,8 @@ namespace CodeBase.Infrastructure.States
             _gameFactory = gameFactory;
             _uiFactory = uiFactory;
             _dataService = dataService;
+            _gameObserver = gameObserver;
+            _logicFactory = logicFactory;
         }
 
         public void Enter(string sceneName)
@@ -46,8 +51,10 @@ namespace CodeBase.Infrastructure.States
             GetLevelConfig(_activeSceneName, out LevelConfig levelConfig);
 
             _uiFactory.CreateUIRoot();
+            _logicFactory.InitializeTowerBuilder(levelConfig);
 
-            _gameFactory.CreateTower(levelConfig.TowerId, Vector3.zero);
+            _logicFactory.TowerBuilder.Build();
+
             _stateMachine.Enter<LoopState>();
         }
 
@@ -58,7 +65,9 @@ namespace CodeBase.Infrastructure.States
 
         private void Clean()
         {
-            _uiFactory.Clean();
+            _uiFactory.Cleanup();
+            _gameObserver.Cleanup();
+            _logicFactory.Cleanup();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CodeBase.Logic.Pool;
+﻿using System;
+using CodeBase.Logic.Pool;
 using System.Collections;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace CodeBase.Bullet
 {
     public class BulletPoolObject : MonoBehaviour, IObjectPool
     {
+        public Action OnEnable;
         private WaitForSeconds _wait;
 
         public void Construct(float lifeTime)
@@ -21,6 +23,7 @@ namespace CodeBase.Bullet
             StopAllCoroutines();
             gameObject.SetActive(true);
             StartCoroutine(DisableThisDelay());
+            OnEnable?.Invoke();
         }
 
         public void Disable()

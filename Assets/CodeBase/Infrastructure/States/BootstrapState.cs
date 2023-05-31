@@ -2,6 +2,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Logic;
 using CodeBase.Services;
 using CodeBase.Services.Factory;
+using CodeBase.Services.GameObserver;
 using CodeBase.Services.Input;
 using CodeBase.Services.LogicFactory;
 using CodeBase.Services.StaticData;
@@ -42,12 +43,18 @@ namespace CodeBase.Infrastructure.States
             RegisterStaticData();
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<IGameObserverService>(new GameObserverService());
 
             _services.RegisterSingle<IGameFactory>(new GameFactory(
                 _services.Single<IAssetProvider>(),
-                _services.Single<IStaticDataService>()));
+                _services.Single<IStaticDataService>(),
+                _services.Single<IGameObserverService>()));
 
-            _services.RegisterSingle<ILogicFactory>(new LogicFactory(_services.Single<IGameFactory>()));
+            _services.RegisterSingle<ILogicFactory>(new LogicFactory(
+                _services.Single<IGameFactory>(),
+                _services.Single<IStaticDataService>(),
+                _services.Single<IGameObserverService>()));
+
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IStaticDataService>()));
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
         }
