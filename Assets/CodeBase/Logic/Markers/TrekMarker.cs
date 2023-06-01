@@ -1,4 +1,4 @@
-﻿using CodeBase.Data.Extension;
+﻿using CodeBase.Extension;
 using UnityEngine;
 
 namespace CodeBase.Logic.Markers

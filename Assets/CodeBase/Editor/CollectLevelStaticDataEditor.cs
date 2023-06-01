@@ -1,11 +1,11 @@
 ﻿using CodeBase.Data;
-using CodeBase.Data.Extension;
 using CodeBase.Logic.Markers;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.Obstacle;
 using CodeBase.StaticData.Tower;
 using CodeBase.StaticData.Trek;
 using System.Linq;
+using CodeBase.Extension;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;

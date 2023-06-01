@@ -51,12 +51,9 @@ namespace CodeBase.Infrastructure.States
             GetLevelConfig(_activeSceneName, out LevelConfig levelConfig);
 
             _uiFactory.CreateUIRoot();
-            _logicFactory.InitializeTowerBuilder(levelConfig);
-            _logicFactory.InitializeObstacleBuilder(levelConfig);
+            _logicFactory.InitializeLevelBuilder(levelConfig);
 
-            _logicFactory.TowerBuilder.Build();
-            _logicFactory.ObstacleBuilder.Build();
-
+            _logicFactory.LevelBuilder.Build();
             _gameFactory.CreatePlayer();
 
             _stateMachine.Enter<LoopState>();

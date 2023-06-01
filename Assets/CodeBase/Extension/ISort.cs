@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Data.Extension
+﻿namespace CodeBase.Extension
 {
     public interface ISort
     {

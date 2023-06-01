@@ -1,10 +1,8 @@
 ﻿using CodeBase.Logic.Pool;
-using CodeBase.Obstacle;
 using CodeBase.Services.Factory;
 using CodeBase.Services.GameObserver;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Levels;
-using CodeBase.Tower;
 
 namespace CodeBase.Services.LogicFactory
 {
@@ -14,8 +12,7 @@ namespace CodeBase.Services.LogicFactory
         private readonly IStaticDataService _dataService;
         private readonly IGameObserverService _gameObserver;
 
-        public TowerBuilder TowerBuilder { get; private set; }
-        public ObstacleBuilder ObstacleBuilder { get; private set; }
+        public LevelBuilder.LevelBuilder LevelBuilder { get; private set; }
 
         public LogicFactory(IGameFactory gameFactory, IStaticDataService dataService, IGameObserverService gameObserver)
         {
@@ -26,22 +23,15 @@ namespace CodeBase.Services.LogicFactory
 
         public void Cleanup()
         {
-            TowerBuilder = null;
+            LevelBuilder = null;
         }
 
-        public void InitializeTowerBuilder(LevelConfig levelConfig)
+        public void InitializeLevelBuilder(LevelConfig levelConfig)
         {
-            TowerBuilder = new TowerBuilder(_gameFactory, _dataService, _gameObserver, levelConfig);
+            LevelBuilder = new LevelBuilder.LevelBuilder(levelConfig, _gameFactory, _dataService, _gameObserver);
         }
 
-        public void InitializeObstacleBuilder(LevelConfig levelConfig)
-        {
-            ObstacleBuilder = new ObstacleBuilder(_gameFactory, levelConfig);
-        }
-
-        public BulletPoolHandlerHandler CreateBulletObjectPool()
-        {
-            return new BulletPoolHandlerHandler(_gameFactory);
-        }
+        public BulletPoolHandlerHandler CreateBulletObjectPool() =>
+            new(_gameFactory);
     }
 }
