@@ -1,4 +1,5 @@
 ﻿using CodeBase.Data;
+using CodeBase.Data.Extension;
 using CodeBase.Logic.Markers;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.Obstacle;
@@ -27,14 +28,22 @@ namespace CodeBase.Editor
                     GameObject playerInitialPoint = GameObject.FindGameObjectWithTag(GameConstants.PlayerInitialPointTag);
                     TowerLevelStaticData[] towerLevelStaticData = FindObjectsOfType<TowerSpawnMarker>().Select(x => new TowerLevelStaticData(x.TowerId, x.transform.position)).ToArray();
                     ObstacleLevelStaticData[] obstacleLevelStaticData = FindObjectsOfType<ObstacleSpawnMarker>().Select(x => new ObstacleLevelStaticData(x.ObstacleId, x.transform.position)).ToArray();
-                    TrekLevelStaticData[] trekMarkers = FindObjectsOfType<TrekMarker>().Select(x => new TrekLevelStaticData(x.GetTrekPoints())).ToArray();
-
-                    config.SetData(playerInitialPoint.transform.position, trekMarkers, towerLevelStaticData, obstacleLevelStaticData);
+                    TrekLevelStaticData[] trekLevelStaticData = FindTrekLevelStaticData();
+                  
+                    config.SetData(playerInitialPoint.transform.position, trekLevelStaticData, towerLevelStaticData, obstacleLevelStaticData);
 
                     EditorUtility.SetDirty(levelsStaticData);
                     break;
                 }
             }
+        }
+
+        private static TrekLevelStaticData[] FindTrekLevelStaticData()
+        {
+            TrekMarker[] markers = FindObjectsOfType<TrekMarker>();
+            markers.ToBubbleSort();
+            TrekLevelStaticData[] trekStaticData = markers.Select(x => new TrekLevelStaticData(x.GetTrekPoints())).ToArray();
+            return trekStaticData;
         }
 
         private static string SceneKey() =>

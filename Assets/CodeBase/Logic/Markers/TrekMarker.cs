@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using CodeBase.Data.Extension;
+using UnityEngine;
 
 namespace CodeBase.Logic.Markers
 {
-    public class TrekMarker : MonoBehaviour
+    public class TrekMarker : MonoBehaviour, ISort
     {
+        [field: SerializeField] public int SortNumber { get; private set; }
         [SerializeField] private Transform[] _trekPoints;
 
         public Vector3[] GetTrekPoints()
@@ -16,5 +18,8 @@ namespace CodeBase.Logic.Markers
 
             return points;
         }
+
+        public void SetSortNumber(int sortNumber) => 
+            SortNumber = sortNumber;
     }
 }

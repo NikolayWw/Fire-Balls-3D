@@ -18,8 +18,8 @@ MonoBehaviour:
     <PlayerInitialPosition>k__BackingField: {x: -0.23, y: 1.27, z: -8.62}
     <TrekLevelStaticData>k__BackingField:
     - <Points>k__BackingField:
-      - {x: 0.078481436, y: 1, z: -7.576716}
-      - {x: 0.078481436, y: 1, z: -4.926716}
+      - {x: 0, y: 1, z: -7.39}
+      - {x: 0, y: 1, z: 0}
     <TowerLevelStaticData>k__BackingField:
     - _inspectorName: Tower1
       <TowerId>k__BackingField: 1
