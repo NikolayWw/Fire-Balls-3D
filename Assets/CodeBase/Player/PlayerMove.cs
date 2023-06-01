@@ -3,6 +3,7 @@ using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Levels;
 using CodeBase.StaticData.Player;
 using CodeBase.StaticData.Trek;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -32,44 +33,38 @@ namespace CodeBase.Player
             _gameObserver.OnTowerDestroyed -= StartMove;
         }
 
-        private void StartMove() =>
-            StartCoroutine(Move());
-
-        private IEnumerator Move()
-        {
-            int trekPointIndex = 0;
-            TrekLevelStaticData currentTrek = _levelConfig.TrekLevelStaticData[_currentIndexTrek];
-
-            while (true)
-            {
-                if (UpdateMove(currentTrek, ref trekPointIndex))
-                    break;
-                yield return null;
-            }
-
-            _currentIndexTrek++;
-            CheckEndTrekMove();
-        }
-
-        private void CheckEndTrekMove()
+        private void StartMove()
         {
             if (_currentIndexTrek > _levelConfig.TrekLevelStaticData.Length)
-                _gameObserver.SendPlayerFinishedMove();
-            else
-                StartMove();
-        }
-
-        private bool UpdateMove(TrekLevelStaticData currentTrek, ref int trekPointIndex)
-        {
-            if (currentTrek.Points[trekPointIndex] == transform.position)
             {
-                trekPointIndex++;
-                if (trekPointIndex > currentTrek.Points.Length)
-                    return true;
+                Debug.LogError("Player finished move");
+                return;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, currentTrek.Points[trekPointIndex], _playerConfig.MoveSpeed * Time.deltaTime);
-            return false;
+            TrekLevelStaticData trek = _levelConfig.TrekLevelStaticData[_currentIndexTrek];
+            StartCoroutine(Move(trek, onMoveEnd: () => _currentIndexTrek++));
+        }
+
+        private IEnumerator Move(TrekLevelStaticData trek, Action onMoveEnd)
+        {
+            int trekPointIndex = 0;
+            while (true)
+            {
+                if (trek.Points[trekPointIndex] == transform.position)
+                {
+                    trekPointIndex++;
+                    if (trekPointIndex >= trek.Points.Length)
+                        break;
+                }
+                UpdateMove(trek.Points[trekPointIndex]);
+                yield return null;
+            }
+            onMoveEnd?.Invoke();
+        }
+
+        private void UpdateMove(Vector3 position)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, position, _playerConfig.MoveSpeed * Time.deltaTime);
         }
     }
 }

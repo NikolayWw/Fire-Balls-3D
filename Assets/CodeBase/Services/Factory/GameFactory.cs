@@ -28,6 +28,7 @@ namespace CodeBase.Services.Factory
         {
             GameObject instance = Service<IAssetProvider>().Instantiate(AssetsPath.Player, Service<IStaticDataService>().ForLevel(LevelKey).PlayerInitialPosition);
             instance.GetComponent<PlayerFire>()?.Construct(Service<IInputService>(), Service<IStaticDataService>(), Service<ILogicFactory>(), Service<IGameObserverService>());
+            instance.GetComponent<PlayerMove>()?.Construct(Service<IGameObserverService>(), Service<IStaticDataService>(), Service<IStaticDataService>().ForLevel(LevelKey));
             return instance;
         }
 
