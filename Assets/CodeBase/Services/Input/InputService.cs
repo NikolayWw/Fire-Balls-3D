@@ -1,9 +1,9 @@
-﻿namespace CodeBase.Services.Input
+﻿using UnityEngine;
+
+namespace CodeBase.Services.Input
 {
     public class InputService : IInputService
     {
-        public InputService()
-        {
-        }
+        public bool IsFire => UnityEngine.Input.GetKeyDown(KeyCode.Space);
     }
 }

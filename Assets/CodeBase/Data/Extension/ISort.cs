@@ -3,6 +3,5 @@
     public interface ISort
     {
         int SortNumber { get; }
-        void SetSortNumber(int sortNumber);
     }
 }

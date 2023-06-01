@@ -2,5 +2,6 @@
 {
     public interface IInputService : IService
     {
+        bool IsFire { get; }
     }
 }

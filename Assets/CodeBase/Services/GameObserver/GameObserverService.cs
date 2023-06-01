@@ -4,10 +4,10 @@ namespace CodeBase.Services.GameObserver
 {
     public class GameObserverService : IGameObserverService
     {
-        public Action OnStartTowerBuild { get; set; }
         public Action OnEndTowerBuild { get; set; }
         public Action OnTowerDestroyed { get; set; }
         public Action OnGameEnd { get; set; }
+        public Action OnPlayerFinishedMove { get; set; }
 
         public void Cleanup()
         {
@@ -17,9 +17,6 @@ namespace CodeBase.Services.GameObserver
             OnGameEnd = null;
         }
 
-        public void SendStartTowerBuild() =>
-            OnStartTowerBuild?.Invoke();
-
         public void SendEndTowerBuild() =>
             OnEndTowerBuild?.Invoke();
 
@@ -28,5 +25,8 @@ namespace CodeBase.Services.GameObserver
 
         public void SendEndGame() =>
             OnGameEnd?.Invoke();
+
+        public void SendPlayerFinishedMove() =>
+            OnPlayerFinishedMove?.Invoke();
     }
 }

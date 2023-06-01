@@ -18,8 +18,5 @@ namespace CodeBase.Logic.Markers
 
             return points;
         }
-
-        public void SetSortNumber(int sortNumber) => 
-            SortNumber = sortNumber;
     }
 }

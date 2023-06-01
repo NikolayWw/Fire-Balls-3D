@@ -1,6 +1,7 @@
 using CodeBase.Bullet;
 using CodeBase.Logic.Pool;
-using CodeBase.Services;
+using CodeBase.Services.GameObserver;
+using CodeBase.Services.Input;
 using CodeBase.Services.LogicFactory;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData.Bullet;
@@ -14,24 +15,48 @@ namespace CodeBase.Player
 
         private IStaticDataService _staticData;
         private BulletPoolHandlerHandler _bulletPoolHandlerHandler;
+        private IInputService _inputService;
+        private IGameObserverService _gameObserver;
 
-        private void Start()
+        public void Construct(IInputService inputService, IStaticDataService dataService, ILogicFactory logicFactory, IGameObserverService gameObserver)
         {
-            _staticData = AllServices.Container.Single<IStaticDataService>();
-            _bulletPoolHandlerHandler = AllServices.Container.Single<ILogicFactory>().CreateBulletObjectPool();
-            _bulletPoolHandlerHandler.InitStartObjects(BulletId.Bullet1,_staticData.BulletStaticData.PoolCount);
+            _inputService = inputService;
+            _staticData = dataService;
+            _bulletPoolHandlerHandler = logicFactory.CreateBulletObjectPool();
+            _gameObserver = gameObserver;
+
+            _gameObserver.OnTowerDestroyed += Freeze;
+            _gameObserver.OnEndTowerBuild += Unfreeze;
+
+            _bulletPoolHandlerHandler.InitStartObjects(BulletId.Bullet1, _staticData.BulletStaticData.PoolCount);
+        }
+
+        private void OnDestroy()
+        {
+            _gameObserver.OnTowerDestroyed -= Freeze;
+            _gameObserver.OnEndTowerBuild -= Unfreeze;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (_inputService.IsFire)
                 Fire();
         }
 
         private void Fire()
         {
             BulletMove bullet = _bulletPoolHandlerHandler.Get(BulletId.Bullet1);
-            bullet.SetPositionAndDirection(_shootPoint.position, _shootPoint.forward * _staticData.BulletStaticData.ShootForce);
+            bullet.SetPositionAndDirection(_shootPoint.position, _shootPoint.forward * _staticData.PlayerStaticData.ShootForce);
+        }
+
+        private void Freeze()
+        {
+            enabled = false;
+        }
+
+        private void Unfreeze()
+        {
+            enabled = true;
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public static class DataExtension
     {
-        public static void ToBubbleSort<TSort>(this TSort[] array) where TSort : ISort
+        public static void BubbleSort<TSort>(this TSort[] array) where TSort : ISort
         {
             TSort temp;
             for (int i = 0; i < array.Length; i++)

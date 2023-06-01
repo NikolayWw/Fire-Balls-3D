@@ -41,7 +41,7 @@ namespace CodeBase.Editor
         private static TrekLevelStaticData[] FindTrekLevelStaticData()
         {
             TrekMarker[] markers = FindObjectsOfType<TrekMarker>();
-            markers.ToBubbleSort();
+            markers.BubbleSort();
             TrekLevelStaticData[] trekStaticData = markers.Select(x => new TrekLevelStaticData(x.GetTrekPoints())).ToArray();
             return trekStaticData;
         }

@@ -44,11 +44,7 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<IInputService>(new InputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IGameObserverService>(new GameObserverService());
-
-            _services.RegisterSingle<IGameFactory>(new GameFactory(
-                _services.Single<IAssetProvider>(),
-                _services.Single<IStaticDataService>(),
-                _services.Single<IGameObserverService>()));
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services));
 
             _services.RegisterSingle<ILogicFactory>(new LogicFactory(
                 _services.Single<IGameFactory>(),

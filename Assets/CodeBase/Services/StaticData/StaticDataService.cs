@@ -1,11 +1,12 @@
 ﻿using CodeBase.StaticData.Bullet;
 using CodeBase.StaticData.Levels;
+using CodeBase.StaticData.Obstacle;
+using CodeBase.StaticData.Player;
 using CodeBase.StaticData.Tower;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Window;
 using System.Collections.Generic;
 using System.Linq;
-using CodeBase.StaticData.Obstacle;
 using UnityEngine;
 
 namespace CodeBase.Services.StaticData
@@ -17,14 +18,16 @@ namespace CodeBase.Services.StaticData
         private const string TowerStaticDataPath = "StaticData/TowerStaticData";
         private const string BulletStaticDataPath = "StaticData/BulletStaticData";
         private const string ObstacleStaticDataPath = "StaticData/ObstacleStaticData";
+        private const string PlayerStaticDataPath = "StaticData/PlayerStaticData";
 
         public BulletStaticData BulletStaticData { get; private set; }
+        public PlayerStaticData PlayerStaticData { get; private set; }
 
         private Dictionary<WindowId, WindowConfig> _windowConfigs;
         private Dictionary<string, LevelConfig> _levelConfigs;
         private Dictionary<TowerId, TowerConfig> _towerConfigs;
         private Dictionary<BulletId, BulletConfig> _bulletConfigs;
-        private Dictionary<ObstacleId, ObstacleConfig> _letConfigs;
+        private Dictionary<ObstacleId, ObstacleConfig> _obstacleConfigs;
 
         public void Load()
         {
@@ -32,7 +35,8 @@ namespace CodeBase.Services.StaticData
             _levelConfigs = Resources.Load<LevelsStaticData>(LevelsStaticDataPath).LevelConfigs.ToDictionary(x => x.LevelKey, x => x);
             _towerConfigs = Resources.Load<TowerStaticData>(TowerStaticDataPath).TowerConfigs.ToDictionary(x => x.TowerId, x => x);
             LoadBulletData();
-            _letConfigs = Resources.Load<ObstacleStaticData>(ObstacleStaticDataPath).ObstacleConfigs.ToDictionary(x => x.Id, x => x);
+            _obstacleConfigs = Resources.Load<ObstacleStaticData>(ObstacleStaticDataPath).ObstacleConfigs.ToDictionary(x => x.Id, x => x);
+            PlayerStaticData = Resources.Load<PlayerStaticData>(PlayerStaticDataPath);
         }
 
         public WindowConfig ForWindow(WindowId id) =>
@@ -48,7 +52,7 @@ namespace CodeBase.Services.StaticData
             _bulletConfigs.TryGetValue(id, out var data) ? data : null;
 
         public ObstacleConfig ForObstacle(ObstacleId id) =>
-            _letConfigs.TryGetValue(id, out var data) ? data : null;
+            _obstacleConfigs.TryGetValue(id, out var data) ? data : null;
 
         private void LoadBulletData()
         {
