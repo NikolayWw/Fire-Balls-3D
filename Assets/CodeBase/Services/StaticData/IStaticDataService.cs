@@ -13,11 +13,16 @@ namespace CodeBase.Services.StaticData
         void Load();
 
         WindowConfig ForWindow(WindowId id);
+
         LevelConfig ForLevel(string levelKey);
+
         TowerConfig ForTower(TowerId id);
+
         BulletConfig ForBullet(BulletId id);
+
         BulletStaticData BulletStaticData { get; }
         PlayerStaticData PlayerStaticData { get; }
+
         ObstacleConfig ForObstacle(ObstacleId id);
     }
 }

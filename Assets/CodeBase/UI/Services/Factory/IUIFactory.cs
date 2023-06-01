@@ -12,6 +12,7 @@ namespace CodeBase.UI.Services.Factory
 
         Dictionary<WindowId, BaseWindow> WindowsContainer { get; }
         Action<WindowId> OnWindowClose { get; set; }
+
         void Cleanup();
     }
 }

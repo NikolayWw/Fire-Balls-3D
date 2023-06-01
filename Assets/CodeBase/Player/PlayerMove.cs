@@ -35,14 +35,11 @@ namespace CodeBase.Player
 
         private void StartMove()
         {
-            if (_currentIndexTrek > _levelConfig.TrekLevelStaticData.Length)
+            if (_currentIndexTrek < _levelConfig.TrekLevelStaticData.Length)
             {
-                Debug.LogError("Player finished move");
-                return;
+                TrekLevelStaticData trek = _levelConfig.TrekLevelStaticData[_currentIndexTrek];
+                StartCoroutine(Move(trek, EndMove));
             }
-
-            TrekLevelStaticData trek = _levelConfig.TrekLevelStaticData[_currentIndexTrek];
-            StartCoroutine(Move(trek, onMoveEnd: () => _currentIndexTrek++));
         }
 
         private IEnumerator Move(TrekLevelStaticData trek, Action onMoveEnd)
@@ -62,8 +59,15 @@ namespace CodeBase.Player
             onMoveEnd?.Invoke();
         }
 
+        private void EndMove()
+        {
+            _currentIndexTrek++;
+            _gameObserver.SendPlayerFinishedMove();
+        }
+
         private void UpdateMove(Vector3 position)
         {
+            transform.LookAt(position);
             transform.position = Vector3.MoveTowards(transform.position, position, _playerConfig.MoveSpeed * Time.deltaTime);
         }
     }

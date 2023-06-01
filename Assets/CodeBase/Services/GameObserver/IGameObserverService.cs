@@ -6,16 +6,17 @@ namespace CodeBase.Services.GameObserver
     {
         Action OnEndTowerBuild { get; set; }
         Action OnTowerDestroyed { get; set; }
-        Action OnGameEnd { get; set; }
+        Action OnLevelCompleted { get; set; }
         Action OnPlayerFinishedMove { get; set; }
 
         void Cleanup();
 
-
         void SendEndTowerBuild();
 
         void SendTowerDestroyed();
-        void SendEndGame();
+
+        void SendLevelCompleted();
+
         void SendPlayerFinishedMove();
     }
 }

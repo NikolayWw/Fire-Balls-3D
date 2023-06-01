@@ -48,7 +48,6 @@ namespace CodeBase.Infrastructure.States
 
             _services.RegisterSingle<ILogicFactory>(new LogicFactory(
                 _services.Single<IGameFactory>(),
-                _services.Single<IStaticDataService>(),
                 _services.Single<IGameObserverService>()));
 
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IStaticDataService>()));

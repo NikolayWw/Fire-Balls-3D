@@ -8,7 +8,9 @@ namespace CodeBase.Services.LogicFactory
         BulletPoolHandlerHandler CreateBulletObjectPool();
 
         void Cleanup();
+
         LevelBuilder.LevelBuilder LevelBuilder { get; }
+
         void InitializeLevelBuilder(LevelConfig levelConfig);
     }
 }

@@ -40,7 +40,6 @@ namespace CodeBase.Services.Factory
             TowerConfig config = Service<IStaticDataService>().ForTower(id);
             GameObject instance = Object.Instantiate(config.TowerPrefab, at, Quaternion.identity);
             instance.GetComponent<TowerMove>()?.Construct(config, Service<IGameObserverService>());
-            instance.GetComponent<TowerApplyDamage>()?.Construct(Service<IGameObserverService>());
             return instance;
         }
 

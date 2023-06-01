@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Bullet
 {
@@ -8,13 +7,10 @@ namespace CodeBase.Bullet
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Transform _mainTransform;
 
-       
-
         public void SetPositionAndDirection(Vector3 position, Vector3 direction)
         {
             _mainTransform.position = position;
             _rigidbody.velocity = direction;
         }
-
     }
 }

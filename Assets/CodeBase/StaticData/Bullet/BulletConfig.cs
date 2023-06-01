@@ -1,5 +1,4 @@
 ﻿using System;
-using CodeBase.Bullet;
 using UnityEngine;
 
 namespace CodeBase.StaticData.Bullet

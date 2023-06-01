@@ -1,10 +1,13 @@
 ﻿using CodeBase.Services.GameObserver;
+using System;
 using UnityEngine;
 
 namespace CodeBase.Obstacle
 {
     public class ObstacleApplyDamage : MonoBehaviour
     {
+        public Action OnBulletTouch;
+
         private IGameObserverService _gameObserver;
         private bool _hasBeenSent;
 
@@ -12,10 +15,7 @@ namespace CodeBase.Obstacle
         {
             _gameObserver = gameObserver;
             _gameObserver.OnTowerDestroyed += CloseThis;
-        }
 
-        private void Start()
-        {
             FindApplyDamageReporter();
         }
 
@@ -29,13 +29,14 @@ namespace CodeBase.Obstacle
             if (_hasBeenSent)
                 return;
 
-            _gameObserver.SendEndGame();
+            OnBulletTouch?.Invoke();
+            _gameObserver.SendLevelCompleted();
             _hasBeenSent = true;
         }
 
         private void FindApplyDamageReporter()
         {
-            foreach (var applyDamageReporter in GetComponentsInChildren<ObstacleSegmentApplyDamageReporter>())
+            foreach (var applyDamageReporter in GetComponentsInChildren<ObstacleSegmentBulletTouchReporter>())
                 applyDamageReporter.OnApplyDamage += ApplyDamage;
         }
 

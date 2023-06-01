@@ -18,9 +18,9 @@ namespace CodeBase.Bullet
             if (_isCausedDamage)
                 return;
 
-            if (other.gameObject.TryGetComponent(out IApplyDamage applyDamage))
+            if (other.gameObject.TryGetComponent(out IBulletTouch applyDamage))
             {
-                applyDamage.ApplyDamage();
+                applyDamage.BulletTouch();
                 _isCausedDamage = true;
             }
         }

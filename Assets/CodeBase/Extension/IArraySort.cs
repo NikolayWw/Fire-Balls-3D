@@ -1,6 +1,6 @@
 ﻿namespace CodeBase.Extension
 {
-    public interface ISort
+    public interface IArraySort
     {
         int SortNumber { get; }
     }

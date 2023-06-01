@@ -1,11 +1,10 @@
 ﻿using CodeBase.Data;
+using CodeBase.Extension;
 using CodeBase.Logic.Markers;
 using CodeBase.StaticData.Levels;
-using CodeBase.StaticData.Obstacle;
 using CodeBase.StaticData.Tower;
 using CodeBase.StaticData.Trek;
 using System.Linq;
-using CodeBase.Extension;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,12 +25,7 @@ namespace CodeBase.Editor
                 if (SceneKey() == config.LevelKey)
                 {
                     GameObject playerInitialPoint = GameObject.FindGameObjectWithTag(GameConstants.PlayerInitialPointTag);
-                    TowerLevelStaticData[] towerLevelStaticData = FindObjectsOfType<TowerSpawnMarker>().Select(x => new TowerLevelStaticData(x.TowerId, x.transform.position)).ToArray();
-                    ObstacleLevelStaticData[] obstacleLevelStaticData = FindObjectsOfType<ObstacleSpawnMarker>().Select(x => new ObstacleLevelStaticData(x.ObstacleId, x.transform.position)).ToArray();
-                    TrekLevelStaticData[] trekLevelStaticData = FindTrekLevelStaticData();
-                  
-                    config.SetData(playerInitialPoint.transform.position, trekLevelStaticData, towerLevelStaticData, obstacleLevelStaticData);
-
+                    config.SetData(playerInitialPoint.transform.position, FindTrekLevelStaticData(), FindTowerStaticData());
                     EditorUtility.SetDirty(levelsStaticData);
                     break;
                 }
@@ -41,9 +35,17 @@ namespace CodeBase.Editor
         private static TrekLevelStaticData[] FindTrekLevelStaticData()
         {
             TrekMarker[] markers = FindObjectsOfType<TrekMarker>();
-            markers.BubbleSort();
-            TrekLevelStaticData[] trekStaticData = markers.Select(x => new TrekLevelStaticData(x.GetTrekPoints())).ToArray();
-            return trekStaticData;
+            markers.ArrayBubbleSort();
+            TrekLevelStaticData[] staticData = markers.Select(x => new TrekLevelStaticData(x.GetTrekPoints())).ToArray();
+            return staticData;
+        }
+
+        private static TowerLevelStaticData[] FindTowerStaticData()
+        {
+            TowerSpawnMarker[] markers = FindObjectsOfType<TowerSpawnMarker>();
+            markers.ArrayBubbleSort();
+            TowerLevelStaticData[] staticData = markers.Select(x => new TowerLevelStaticData(x.TowerId, x.ObstacleId, x.transform.position)).ToArray();
+            return staticData;
         }
 
         private static string SceneKey() =>

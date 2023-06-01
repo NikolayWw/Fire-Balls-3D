@@ -36,7 +36,7 @@ namespace CodeBase.Obstacle
             _rigidbody.MoveRotation(Quaternion.Euler(rotate));
         }
 
-        private void StopMove() => 
+        private void StopMove() =>
             enabled = false;
     }
 }

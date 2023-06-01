@@ -26,11 +26,13 @@ namespace CodeBase.UI.Services.Factory
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
         }
+
         public void Cleanup()
         {
             WindowsContainer.Clear();
             OnWindowClose = null;
         }
+
         public void CreateUIRoot() =>
             _uiRoot = _assetProvider.Instantiate(UIRootPath).transform;
 

@@ -3,7 +3,9 @@
     public interface IObjectPool
     {
         bool IsReady();
+
         void Enable();
+
         void Disable();
     }
 }

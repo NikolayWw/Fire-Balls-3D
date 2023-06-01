@@ -6,7 +6,7 @@ namespace CodeBase.Services.GameObserver
     {
         public Action OnEndTowerBuild { get; set; }
         public Action OnTowerDestroyed { get; set; }
-        public Action OnGameEnd { get; set; }
+        public Action OnLevelCompleted { get; set; }
         public Action OnPlayerFinishedMove { get; set; }
 
         public void Cleanup()
@@ -14,7 +14,7 @@ namespace CodeBase.Services.GameObserver
             OnEndTowerBuild = null;
             OnEndTowerBuild = null;
             OnTowerDestroyed = null;
-            OnGameEnd = null;
+            OnLevelCompleted = null;
         }
 
         public void SendEndTowerBuild() =>
@@ -23,8 +23,8 @@ namespace CodeBase.Services.GameObserver
         public void SendTowerDestroyed() =>
             OnTowerDestroyed?.Invoke();
 
-        public void SendEndGame() =>
-            OnGameEnd?.Invoke();
+        public void SendLevelCompleted() =>
+            OnLevelCompleted?.Invoke();
 
         public void SendPlayerFinishedMove() =>
             OnPlayerFinishedMove?.Invoke();

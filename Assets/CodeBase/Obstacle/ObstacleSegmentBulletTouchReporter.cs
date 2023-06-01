@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace CodeBase.Obstacle
 {
-    public class ObstacleSegmentApplyDamageReporter : MonoBehaviour, IApplyDamage
+    public class ObstacleSegmentBulletTouchReporter : MonoBehaviour, IBulletTouch
     {
         public Action OnApplyDamage;
 
-        public void ApplyDamage()
+        public void BulletTouch()
         {
             OnApplyDamage?.Invoke();
         }

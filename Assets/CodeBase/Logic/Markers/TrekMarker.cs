@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CodeBase.Logic.Markers
 {
-    public class TrekMarker : MonoBehaviour, ISort
+    public class TrekMarker : MonoBehaviour, IArraySort
     {
         [field: SerializeField] public int SortNumber { get; private set; }
         [SerializeField] private Transform[] _trekPoints;
