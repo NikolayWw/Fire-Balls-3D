@@ -6,8 +6,6 @@ using CodeBase.Services.GameObserver;
 using CodeBase.Services.Input;
 using CodeBase.Services.LogicFactory;
 using CodeBase.Services.StaticData;
-using CodeBase.UI.Services.Factory;
-using CodeBase.UI.Services.Window;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -49,9 +47,6 @@ namespace CodeBase.Infrastructure.States
             _services.RegisterSingle<ILogicFactory>(new LogicFactory(
                 _services.Single<IGameFactory>(),
                 _services.Single<IGameObserverService>()));
-
-            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IStaticDataService>()));
-            _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
         }
 
         private void OnLoaded()
