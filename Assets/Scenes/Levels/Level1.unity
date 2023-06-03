@@ -1172,7 +1172,7 @@ PrefabInstance:
       objectReference: {fileID: 1874291505}
     - target: {fileID: 8728080549831699271, guid: 240dbd91a99824244a5d24aea40aa747, type: 3}
       propertyPath: <SortNumber>k__BackingField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8728080549831699271, guid: 240dbd91a99824244a5d24aea40aa747, type: 3}
       propertyPath: <TrekNumber>k__BackingField
