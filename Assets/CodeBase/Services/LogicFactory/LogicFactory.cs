@@ -27,7 +27,7 @@ namespace CodeBase.Services.LogicFactory
         public void InitializeLevelBuilder(LevelConfig levelConfig) =>
             LevelBuilder = new LevelBuilder.LevelBuilder(levelConfig, _gameFactory, _gameObserver);
 
-        public BulletPoolHandlerHandler CreateBulletObjectPool() =>
+        public BulletPoolHandler CreateBulletObjectPool() =>
             new(_gameFactory);
     }
 }

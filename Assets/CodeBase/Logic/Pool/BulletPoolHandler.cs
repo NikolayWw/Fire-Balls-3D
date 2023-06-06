@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace CodeBase.Logic.Pool
 {
-    public class BulletPoolHandlerHandler : BaseObjectPoolHandler<BulletId, BulletPoolObject>
+    public class BulletPoolHandler : BaseObjectPoolHandler<BulletId, BulletPoolObject>
     {
         private readonly IGameFactory _gameFactory;
 
-        public BulletPoolHandlerHandler(IGameFactory gameFactory) =>
+        public BulletPoolHandler(IGameFactory gameFactory) =>
             _gameFactory = gameFactory;
 
         public BulletMove Get(BulletId id)

@@ -5,7 +5,7 @@ namespace CodeBase.Services.LogicFactory
 {
     public interface ILogicFactory : IService
     {
-        BulletPoolHandlerHandler CreateBulletObjectPool();
+        BulletPoolHandler CreateBulletObjectPool();
 
         void Cleanup();
 

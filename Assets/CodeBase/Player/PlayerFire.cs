@@ -14,7 +14,7 @@ namespace CodeBase.Player
         [SerializeField] private Transform _shootPoint;
 
         private IStaticDataService _staticData;
-        private BulletPoolHandlerHandler _bulletPoolHandlerHandler;
+        private BulletPoolHandler _bulletPoolHandler;
         private IInputService _inputService;
         private IGameObserverService _gameObserver;
 
@@ -22,13 +22,13 @@ namespace CodeBase.Player
         {
             _inputService = inputService;
             _staticData = dataService;
-            _bulletPoolHandlerHandler = logicFactory.CreateBulletObjectPool();
+            _bulletPoolHandler = logicFactory.CreateBulletObjectPool();
             _gameObserver = gameObserver;
 
             _gameObserver.OnTowerDestroyed += Freeze;
             _gameObserver.OnEndTowerBuild += Unfreeze;
 
-            _bulletPoolHandlerHandler.InitStartObjects(BulletId.Bullet1, _staticData.BulletStaticData.PoolCount);
+            _bulletPoolHandler.InitStartObjects(BulletId.Bullet1, _staticData.BulletStaticData.PoolCount);
         }
 
         private void OnDestroy()
@@ -45,7 +45,7 @@ namespace CodeBase.Player
 
         private void Fire()
         {
-            BulletMove bullet = _bulletPoolHandlerHandler.Get(BulletId.Bullet1);
+            BulletMove bullet = _bulletPoolHandler.Get(BulletId.Bullet1);
             bullet.SetPositionAndDirection(_shootPoint.position, _shootPoint.forward * _staticData.PlayerStaticData.ShootForce);
         }
 
